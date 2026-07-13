@@ -14,21 +14,17 @@ It fetches pages directly with [`httpx`](https://www.python-httpx.org/) and conv
 - Per-URL error handling
 - Plain-text response support
 
-## One-line installation
+## Installation
 
-For a standard Hermes installation, this installs the plugin and its Python dependencies, enables it, and selects it for `web_extract`:
+Install, enable, and select the plugin with one command:
 
 ```bash
-"${HERMES_HOME:-$HOME/.hermes}/hermes-agent/venv/bin/python" -m pip install --upgrade 'git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git' && hermes plugins enable web-basic-web_extract && hermes config set web.extract_backend basic
+hermes plugins install V1rgul/hermes-agent-plugin-web_extract-basic --enable && hermes config set web.extract_backend basic
 ```
 
-The Python package is installed inside the Hermes virtual environment's `site-packages`, not copied into `~/.hermes/plugins/`. For example, a standard Python 3.11 installation stores it under:
+On the first `web_extract` call, the plugin checks whether `httpx` and `html-to-markdown` are importable. If either is missing, it installs both into the active Hermes Python environment and then continues the extraction. Later calls reuse the installed packages.
 
-```text
-~/.hermes/hermes-agent/venv/lib/python3.11/site-packages/basic_web_extract/
-```
-
-Hermes discovers it through the `hermes_agent.plugins` entry point declared in `pyproject.toml`. `pip` installs `httpx` and `html-to-markdown` automatically.
+Automatic installation follows Hermes' `security.allow_lazy_installs` setting. If lazy installation is disabled or package installation fails, `web_extract` returns the installer error and a manual installation command.
 
 Then start a new Hermes session. If you use the messaging gateway, restart it:
 
@@ -36,17 +32,12 @@ Then start a new Hermes session. If you use the messaging gateway, restart it:
 hermes gateway restart
 ```
 
-> The standard `hermes plugins install owner/repo` command clones plugin files but currently does not install packages from `requirements.txt`. Use the one-line `pip install git+…` command above when you want dependencies installed automatically.
+## Alternative pip installation
 
-## Manual Git installation
+The repository is also a Python package. Installing it into the Hermes virtual environment installs its dependencies eagerly and registers the same plugin through a Python entry point:
 
 ```bash
-git clone https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git \
-	~/.hermes/plugins/web-basic-web_extract
-~/.hermes/hermes-agent/venv/bin/python -m pip install -r \
-	~/.hermes/plugins/web-basic-web_extract/requirements.txt
-hermes plugins enable web-basic-web_extract
-hermes config set web.extract_backend basic
+"${HERMES_HOME:-$HOME/.hermes}/hermes-agent/venv/bin/python" -m pip install --upgrade 'git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git' && hermes plugins enable web-basic-web_extract && hermes config set web.extract_backend basic
 ```
 
 ## Requirements

@@ -14,24 +14,19 @@ It fetches pages directly with [`httpx`](https://www.python-httpx.org/) and conv
 - Per-URL error handling
 - Plain-text response support
 
-## Installation
+## Installation with automatic dependencies
 
-Install the plugin from GitHub:
+Install the package into the Hermes Python environment. `pip` installs `httpx` and `html-to-markdown` automatically from the dependencies declared in `pyproject.toml`:
 
 ```bash
-hermes plugins install V1rgul/hermes-agent-plugin-web_extract-basic --enable
+~/.hermes/hermes-agent/venv/bin/python -m pip install \
+	git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git
 ```
 
-Install its Python dependencies into the Hermes environment. For the standard Hermes installer layout:
+Enable the plugin and select it as the extraction backend:
 
 ```bash
-~/.hermes/hermes-agent/venv/bin/python -m pip install -r \
-	~/.hermes/plugins/web-basic-web-extract/requirements.txt
-```
-
-Select it as the extraction backend:
-
-```bash
+hermes plugins enable web-basic-web-extract
 hermes config set web.extract_backend basic
 ```
 
@@ -41,7 +36,9 @@ Then start a new Hermes session. If you use the messaging gateway, restart it:
 hermes gateway restart
 ```
 
-## Manual installation
+> The standard `hermes plugins install owner/repo` command clones plugin files but currently does not install packages from `requirements.txt`. Use the `pip install git+…` command above when you want dependencies installed automatically.
+
+## Manual Git installation
 
 ```bash
 git clone https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git \

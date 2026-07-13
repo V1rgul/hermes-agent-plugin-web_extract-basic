@@ -19,7 +19,7 @@ It fetches pages directly with [`httpx`](https://www.python-httpx.org/) and conv
 For a standard Hermes installation, this installs the plugin and its Python dependencies, enables it, and selects it for `web_extract`:
 
 ```bash
-"${HERMES_HOME:-$HOME/.hermes}/hermes-agent/venv/bin/python" -m pip install --upgrade 'git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git' && hermes plugins enable web-basic-web-extract && hermes config set web.extract_backend basic
+"${HERMES_HOME:-$HOME/.hermes}/hermes-agent/venv/bin/python" -m pip install --upgrade 'git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git' && hermes plugins enable web-basic-web_extract && hermes config set web.extract_backend basic
 ```
 
 The Python package is installed inside the Hermes virtual environment's `site-packages`, not copied into `~/.hermes/plugins/`. For example, a standard Python 3.11 installation stores it under:
@@ -42,10 +42,10 @@ hermes gateway restart
 
 ```bash
 git clone https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git \
-	~/.hermes/plugins/web/basic_web_extract
+	~/.hermes/plugins/web-basic-web_extract
 ~/.hermes/hermes-agent/venv/bin/python -m pip install -r \
-	~/.hermes/plugins/web/basic_web_extract/requirements.txt
-hermes plugins enable web/basic_web_extract
+	~/.hermes/plugins/web-basic-web_extract/requirements.txt
+hermes plugins enable web-basic-web_extract
 hermes config set web.extract_backend basic
 ```
 

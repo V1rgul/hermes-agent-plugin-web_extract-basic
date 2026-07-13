@@ -1,4 +1,4 @@
-name: web-basic-web-extract
+name: web-basic-web_extract
 version: 1.0.0
 description: "Free, local web extraction using httpx and html-to-markdown. No API key or external extraction service required."
 author: V1rgul

@@ -26,7 +26,7 @@ Repository = "https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic"
 Documentation = "https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic#readme"
 
 [project.entry-points."hermes_agent.plugins"]
-web-basic-web-extract = "basic_web_extract"
+web-basic-web_extract = "basic_web_extract"
 
 [tool.setuptools]
 packages = ["basic_web_extract"]

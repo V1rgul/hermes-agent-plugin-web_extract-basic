@@ -14,21 +14,21 @@ It fetches pages directly with [`httpx`](https://www.python-httpx.org/) and conv
 - Per-URL error handling
 - Plain-text response support
 
-## Installation with automatic dependencies
+## One-line installation
 
-Install the package into the Hermes Python environment. `pip` installs `httpx` and `html-to-markdown` automatically from the dependencies declared in `pyproject.toml`:
-
-```bash
-~/.hermes/hermes-agent/venv/bin/python -m pip install \
-	git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git
-```
-
-Enable the plugin and select it as the extraction backend:
+For a standard Hermes installation, this installs the plugin and its Python dependencies, enables it, and selects it for `web_extract`:
 
 ```bash
-hermes plugins enable web-basic-web-extract
-hermes config set web.extract_backend basic
+"${HERMES_HOME:-$HOME/.hermes}/hermes-agent/venv/bin/python" -m pip install --upgrade 'git+https://github.com/V1rgul/hermes-agent-plugin-web_extract-basic.git' && hermes plugins enable web-basic-web-extract && hermes config set web.extract_backend basic
 ```
+
+The Python package is installed inside the Hermes virtual environment's `site-packages`, not copied into `~/.hermes/plugins/`. For example, a standard Python 3.11 installation stores it under:
+
+```text
+~/.hermes/hermes-agent/venv/lib/python3.11/site-packages/basic_web_extract/
+```
+
+Hermes discovers it through the `hermes_agent.plugins` entry point declared in `pyproject.toml`. `pip` installs `httpx` and `html-to-markdown` automatically.
 
 Then start a new Hermes session. If you use the messaging gateway, restart it:
 
@@ -36,7 +36,7 @@ Then start a new Hermes session. If you use the messaging gateway, restart it:
 hermes gateway restart
 ```
 
-> The standard `hermes plugins install owner/repo` command clones plugin files but currently does not install packages from `requirements.txt`. Use the `pip install git+…` command above when you want dependencies installed automatically.
+> The standard `hermes plugins install owner/repo` command clones plugin files but currently does not install packages from `requirements.txt`. Use the one-line `pip install git+…` command above when you want dependencies installed automatically.
 
 ## Manual Git installation
 

@@ -19,7 +19,7 @@ def test_extract_reports_dependency_install_failure_for_each_url(monkeypatch):
 	assert all("installer offline" in result["error"] for result in results)
 
 
-def test_extract_does_not_override_httpx_user_agent(monkeypatch):
+def test_extract_uses_chrome_user_agent(monkeypatch):
 	captured = {}
 
 	class FakeTimeout:
@@ -65,5 +65,8 @@ def test_extract_does_not_override_httpx_user_agent(monkeypatch):
 	)
 
 	assert not results[0].get("error"), results
-	assert all(key.lower() != "user-agent" for key in captured["headers"])
+	assert captured["headers"]["User-Agent"] == (
+		"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+		"(KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+	)
 	assert captured["headers"]["Accept"].startswith("text/html")

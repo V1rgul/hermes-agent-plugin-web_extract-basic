@@ -96,10 +96,6 @@ class BasicExtractProvider(WebSearchProvider):
 		timeout = httpx.Timeout(30.0, connect=10.0)
 		limits = httpx.Limits(max_connections=min(max(len(urls), 1), 10))
 		headers = {
-			"User-Agent": (
-				"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-				"(KHTML, like Gecko) Chrome/124.0 Safari/537.36 HermesBasicExtract/1.0"
-			),
 			"Accept": "text/html,application/xhtml+xml,text/plain;q=0.9,*/*;q=0.1",
 		}
 

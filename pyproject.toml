@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hermes-agent-plugin-web-extract-basic"
-version = "1.1.0"
+version = "1.1.1"
 description = "Free local web extraction for Hermes Agent using httpx and html-to-markdown"
 readme = "README.md"
 requires-python = ">=3.10"
